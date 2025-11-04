@@ -6,25 +6,27 @@ import java.util.stream.Collectors;
 
 public final class GameController {
 
-    String word;
-    static Scanner input = new Scanner(System.in);
-    ArrayList<String> guesses = new ArrayList<>();
-    int errorCount = 0;
-    int maxErrors = 6;
+    private final String word;
+    private static final Scanner input = new Scanner(System.in);
+    private final ArrayList<String> guesses = new ArrayList<>();
+    private int errorCount = 0;
 
     public GameController() {
         this(getWord());
     }
+
     public GameController(String newInitWord) {
         word = newInitWord;
     }
-    String generateShownWord() {
+
+    private String generateShownWord() {
         return word.codePoints()
                 .mapToObj(Character::toChars)
                 .map(x -> guesses.contains(new String(x)) ? new String(x) : "*")
                 .collect(Collectors.joining());
     }
-    Boolean guess() {
+
+    private Boolean guess() {
         System.out.println("Enter guess letter");
 
         var letter = input.nextLine().toLowerCase();
@@ -43,6 +45,7 @@ public final class GameController {
         guesses.add(letter);
         return word.contains(letter);
     }
+
     public void playGame() {
         System.out.println("Word is: " + word);
         while (true) {
@@ -52,6 +55,7 @@ public final class GameController {
                 System.out.printf("Wrong, you made %d mistakes\n",  errorCount);
 
                 draw(errorCount);
+                int maxErrors = 6;
                 if(errorCount >= maxErrors)
                 {
                     System.out.println("Sorry, you lost");
@@ -76,6 +80,7 @@ public final class GameController {
 
         return GameDictionary.dictionary.get(ThreadLocalRandom.current().nextInt(0, GameDictionary.dictionary.size()));
     }
+
     void draw(Integer errors) {
         List<String> Sprites = List.of(
                 """
