@@ -12,34 +12,31 @@ public final class GameController {
     int errorCount = 0;
     int maxErrors = 6;
 
-    public GameController()
-    {
+    public GameController() {
         this(getWord());
     }
-    public GameController(String newInitWord)
-    {
+    public GameController(String newInitWord) {
         word = newInitWord;
     }
-    String generateShownWord()
-    {
-
+    String generateShownWord() {
         return word.codePoints()
                 .mapToObj(Character::toChars)
                 .map(x -> guesses.contains(new String(x)) ? new String(x) : "*")
                 .collect(Collectors.joining());
     }
-    Boolean guess()
-    {
+    Boolean guess() {
         System.out.println("Enter guess letter");
 
         var letter = input.nextLine().toLowerCase();
 
-        while(!Alphabet.contains(letter) || guesses.contains(letter))
+        while(!GameDictionary.Alphabet.contains(letter) || guesses.contains(letter))
         {
-            if(!Alphabet.contains(letter))
+            if(!GameDictionary.Alphabet.contains(letter)) {
                 System.out.println("Please enter a letter");
-            else
+            }
+            else {
                 System.out.println("It's repetition of previous guess");
+            }
             letter = input.nextLine();
         }
 
@@ -76,115 +73,11 @@ public final class GameController {
     }
 
     public static String getWord() {
-        String[] dictionary = {
-                "apple",
-                "banana",
-                "orange",
-                "elephant",
-                "guitar",
-                "mountain",
-                "computer",
-                "galaxy",
-                "rainbow",
-                "chocolate",
-                "volcano",
-                "diamond",
-                "whisper",
-                "thunder",
-                "crystal",
-                "lantern",
-                "puzzle",
-                "magnet",
-                "ocean",
-                "castle",
-                "treasure",
-                "dragon",
-                "cactus",
-                "horizon",
-                "journey",
-                "lantern",
-                "village",
-                "silver",
-                "rocket",
-                "pirate",
-                "island",
-                "comet",
-                "planet",
-                "mirror",
-                "shadow",
-                "secret",
-                "candle",
-                "desert",
-                "forest",
-                "jungle",
-                "window",
-                "ladder",
-                "monster",
-                "armor",
-                "legend",
-                "garden",
-                "blossom",
-                "crystal",
-                "diamond",
-                "thunderstorm",
-                "waterfall",
-                "universe",
-                "galaxy",
-                "telescope",
-                "gravity",
-                "molecule",
-                "oxygen",
-                "carbon",
-                "satellite",
-                "astronaut",
-                "meteor",
-                "nebula",
-                "blackhole",
-                "starlight",
-                "quantum",
-                "eclipse",
-                "horizon",
-                "aurora",
-                "comet",
-                "asteroid",
-                "spaceship",
-                "engine",
-                "circuit",
-                "battery",
-                "magnet",
-                "robot",
-                "program",
-                "virus",
-                "pixel",
-                "sensor",
-                "laser",
-                "crystal",
-                "portal",
-                "phantom",
-                "spirit",
-                "castle",
-                "fortress",
-                "kingdom",
-                "soldier",
-                "champion",
-                "wizard",
-                "potion",
-                "sword",
-                "armor",
-                "spell",
-                "crystal",
-                "phoenix",
-                "destiny",
-                "freedom",
-                "eternity"
-        };
 
-        return dictionary[ThreadLocalRandom.current().nextInt(0, dictionary.length)];
+        return GameDictionary.dictionary.get(ThreadLocalRandom.current().nextInt(0, GameDictionary.dictionary.size()));
     }
-    static ArrayList<String> Alphabet = new ArrayList<>(List.of("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"));
-    void draw(Integer errors)
-    {
-        ArrayList<String> Sprites = new ArrayList<>(List.of(
+    void draw(Integer errors) {
+        List<String> Sprites = List.of(
                 """
             
             
@@ -215,7 +108,7 @@ public final class GameController {
             |/|\\
             _/_\\
             """
-        ));
+        );
         System.out.println(Sprites.get(errors - 1));
     }
 
