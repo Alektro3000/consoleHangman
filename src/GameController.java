@@ -31,12 +31,10 @@ public final class GameController {
 
         var letter = input.nextLine().toLowerCase();
 
-        while(!GameDictionary.Alphabet.contains(letter) || guesses.contains(letter))
-        {
-            if(!GameDictionary.Alphabet.contains(letter)) {
+        while (!GameDictionary.Alphabet.contains(letter) || guesses.contains(letter)) {
+            if (!GameDictionary.Alphabet.contains(letter)) {
                 System.out.println("Please enter a letter");
-            }
-            else {
+            } else {
                 System.out.println("It's repetition of previous guess");
             }
             letter = input.nextLine();
@@ -50,25 +48,23 @@ public final class GameController {
         System.out.println("Word is: " + word);
         while (true) {
             var isCorrect = guess();
+            
             if (!isCorrect) {
                 errorCount++;
-                System.out.printf("Wrong, you made %d mistakes\n",  errorCount);
+                System.out.printf("Wrong, you made %d mistakes\n", errorCount);
 
                 draw(errorCount);
                 int maxErrors = 6;
-                if(errorCount >= maxErrors)
-                {
+                if (errorCount >= maxErrors) {
                     System.out.println("Sorry, you lost");
                     System.out.println("Word is: " + word);
                     return;
                 }
-            }
-            else {
+            } else {
                 System.out.print("Right, the word is: ");
                 String shownWord = generateShownWord();
                 System.out.println(shownWord);
-                if(word.equals(shownWord))
-                {
+                if (word.equals(shownWord)) {
                     System.out.print("You won!");
                     return;
                 }
@@ -76,43 +72,42 @@ public final class GameController {
         }
     }
 
-    public static String getWord() {
-
+    private static String getWord() {
         return GameDictionary.dictionary.get(ThreadLocalRandom.current().nextInt(0, GameDictionary.dictionary.size()));
     }
 
-    void draw(Integer errors) {
+    private void draw(Integer errors) {
         List<String> Sprites = List.of(
                 """
-            
-            
-            ____
-            """,
+                        
+                        
+                        ____
+                        """,
                 """
-            |-
-            |
-            ____
-            """,
+                        |-
+                        |
+                        ____
+                        """,
                 """
-            |-O
-            |
-            ____
-            """,
+                        |-O
+                        |
+                        ____
+                        """,
                 """
-            |-O
-            | |
-            ____
-            """,
+                        |-O
+                        | |
+                        ____
+                        """,
                 """
-            |-O
-            |/|\\
-            ____
-            """,
+                        |-O
+                        |/|\\
+                        ____
+                        """,
                 """
-            |-O
-            |/|\\
-            _/_\\
-            """
+                        |-O
+                        |/|\\
+                        _/_\\
+                        """
         );
         System.out.println(Sprites.get(errors - 1));
     }

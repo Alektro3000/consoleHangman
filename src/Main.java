@@ -11,17 +11,16 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String s = sc.nextLine();
 
-        if("n".equalsIgnoreCase(s)) {
+        if ("n".equalsIgnoreCase(s)) {
             return;
         }
 
-        while(true)
-        {
+        while (true) {
             GameController game = new GameController();
             game.playGame();
             System.out.println("Do you want to play again? (y/n)");
             s = sc.nextLine();
-            if("n".equalsIgnoreCase(s)) {
+            if ("n".equalsIgnoreCase(s)) {
                 return;
             }
         }
